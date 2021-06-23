@@ -234,17 +234,19 @@ int main(int argc, char *argv[])
     unsigned long clusters = 2;
 
     int necessary_parameters = 0;
-    for (int parameter_index = 1; parameter_index < argc - 1; parameter_index += 2)
+    for (int index = 1; index < argc; index++)
     {
-        if (!strncmp(argv[parameter_index], "-i", 2))
+        if (!strncmp(argv[index], "-i", 2))
         {
-            strncpy(file, argv[parameter_index + 1], 10240);
+            assert(index + 1 < argc);
+            strncpy(file, argv[index + 1], 10240);
             file[10239] = 0;
             necessary_parameters++;
         }
-        else if (!strncmp(argv[parameter_index], "-c", 2) || !strncmp(argv[parameter_index], "-k", 2))
+        else if (!strncmp(argv[index], "-c", 2) || !strncmp(argv[index], "-k", 2))
         {
-            sscanf(argv[parameter_index + 1], "%lu", &clusters);
+            assert(index + 1 < argc);
+            sscanf(argv[index + 1], "%lu", &clusters);
             necessary_parameters++;
         }
     }
